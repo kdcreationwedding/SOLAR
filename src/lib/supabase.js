@@ -1,16 +1,16 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Configurable environment variables for alternative Supabase project if user provides one
-const customSupabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const customSupabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+// New Dedicated Supabase Project for KD GLOBAL SUN ENERGY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://nndqdduyahvkmlyztgbt.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-export const supabase = (customSupabaseUrl && customSupabaseAnonKey)
-  ? createClient(customSupabaseUrl, customSupabaseAnonKey)
+export const supabase = (supabaseUrl && supabaseAnonKey)
+  ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
 export async function submitInquiryToBackend(inquiryData) {
   try {
-    // 1. If user provided a new custom Supabase project via ENV, submit there
+    // 1. If Supabase client is initialized with Anon Key, insert into new Supabase DB `inquiries` table
     if (supabase) {
       const { data, error } = await supabase
         .from('inquiries')
@@ -24,11 +24,11 @@ export async function submitInquiryToBackend(inquiryData) {
             status: 'new'
           }
         ]);
-      if (error) console.warn('Custom Supabase notice:', error);
-      else console.log('Inquiry saved to custom Supabase:', data);
+      if (error) console.warn('Supabase DB notice:', error);
+      else console.log('✅ Inquiry saved to new Supabase DB (nndqdduyahvkmlyztgbt):', data);
     }
 
-    // 2. Submit to dedicated KD Global Sun Energy Local Express DB Server (Port 5001)
+    // 2. Submit to dedicated KD Global Express API Server (Port 5001)
     const response = await fetch('http://localhost:5001/api/inquiry', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -36,7 +36,7 @@ export async function submitInquiryToBackend(inquiryData) {
     });
 
     const resData = await response.json();
-    console.log('Inquiry saved to KD Global Local Database:', resData);
+    console.log('✅ Inquiry saved to KD Global Backend:', resData);
 
     return { success: true };
   } catch (err) {
