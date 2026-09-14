@@ -13,6 +13,7 @@ import { WhyUsSection } from './components/ui/WhyUsSection';
 import { TechSection } from './components/ui/TechSection';
 import { ProjectsSection } from './components/ui/ProjectsSection';
 import { ImpactSection } from './components/ui/ImpactSection';
+import { AdminInquiriesSection } from './components/ui/AdminInquiriesSection';
 import { CtaSection } from './components/ui/CtaSection';
 import { FooterSection } from './components/ui/FooterSection';
 import { Modal } from './components/ui/Modal';
@@ -159,6 +160,8 @@ export default function App() {
         />
 
         <ImpactSection />
+
+        <AdminInquiriesSection />
 
         <CtaSection onContactClick={openContactModal} />
       </main>

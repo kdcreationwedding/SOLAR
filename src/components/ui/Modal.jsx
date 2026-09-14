@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, PhoneCall, Zap, Shield, MapPin, Mail, Phone, Loader2 } from 'lucide-react';
+import { X, CheckCircle2, PhoneCall, Zap, Shield, MapPin, Mail, Phone, Loader2, MessageSquare } from 'lucide-react';
 import { Logo } from './Logo';
 import { submitInquiryToBackend } from '../../lib/supabase';
 
@@ -20,12 +20,21 @@ export const Modal = ({ isOpen, onClose, data, type = 'solution' }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleWhatsAppSend = () => {
+    const text = `Hello KD GLOBAL SUN ENERGY Team! ☀️\n\nI would like to inquire about a solar energy project:\n\n👤 Name: ${formData.name || 'Customer'}\n📞 Phone: ${formData.phone || 'Not provided'}\n📧 Email: ${formData.email || 'Not provided'}\n⚡ System Capacity: ${formData.capacity}\n📝 Details: ${formData.details || 'General Solar Inquiry'}\n\nSent from KD GLOBAL SUN ENERGY Website.`;
+    
+    window.open(`https://wa.me/916352184521?text=${encodeURIComponent(text)}`, '_blank');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // Send inquiry to Supabase DB & Local Express Backend API
+    // 1. Submit to Supabase DB & Local Express API
     await submitInquiryToBackend(formData);
+
+    // 2. Open Direct WhatsApp Message
+    handleWhatsAppSend();
 
     setLoading(false);
     setFormSubmitted(true);
@@ -51,9 +60,9 @@ export const Modal = ({ isOpen, onClose, data, type = 'solution' }) => {
             <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto animate-bounce">
               <CheckCircle2 className="w-10 h-10" />
             </div>
-            <h3 className="font-display text-2xl font-bold text-white">Inquiry Sent to Backend!</h3>
+            <h3 className="font-display text-2xl font-bold text-white">Inquiry Received & WhatsApp Opened!</h3>
             <p className="text-slate-300 text-sm max-w-md mx-auto">
-              Thank you <strong className="text-amber-400">{formData.name}</strong>! Your inquiry has been saved to the database. Our solar engineering team at GIFT City, Gandhinagar will contact you at <strong className="text-amber-400">{formData.phone}</strong>.
+              Thank you <strong className="text-amber-400">{formData.name}</strong>! Your inquiry has been saved to the database table and sent to our WhatsApp line (<strong className="text-amber-400">+91 63521 84521</strong>).
             </p>
           </div>
         ) : type === 'contact' ? (
@@ -75,13 +84,21 @@ export const Modal = ({ isOpen, onClose, data, type = 'solution' }) => {
                 <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
                 <span><strong>Corporate Office:</strong> 1805–1804, Flex One, GIFT City, Gandhinagar, Gujarat, India.</span>
               </div>
-              <div className="flex flex-wrap gap-4 pt-1 border-t border-white/10">
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/10">
                 <a href="tel:+916352184521" className="flex items-center gap-1.5 text-amber-400 font-bold hover:underline">
                   <Phone className="w-3.5 h-3.5" /> +91 63521 84521
                 </a>
                 <a href="mailto:kdglobalsunenergy@gmail.com" className="flex items-center gap-1.5 text-slate-200 hover:text-amber-300">
                   <Mail className="w-3.5 h-3.5 text-amber-400" /> kdglobalsunenergy@gmail.com
                 </a>
+                <button
+                  type="button"
+                  onClick={handleWhatsAppSend}
+                  className="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 hover:text-black border border-emerald-500/40 text-emerald-400 text-xs font-bold inline-flex items-center gap-1.5 transition-colors"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  Direct WhatsApp
+                </button>
               </div>
             </div>
 
@@ -115,14 +132,14 @@ export const Modal = ({ isOpen, onClose, data, type = 'solution' }) => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase text-slate-300 mb-1">Phone Number</label>
+                  <label className="block text-xs font-bold uppercase text-slate-300 mb-1">Phone Number (WhatsApp)</label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    placeholder="+91 98000 00000"
+                    placeholder="+91 63521 84521"
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-amber-400"
                   />
                 </div>
@@ -154,23 +171,34 @@ export const Modal = ({ isOpen, onClose, data, type = 'solution' }) => {
                 ></textarea>
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-black font-extrabold uppercase text-xs tracking-widest hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(249,115,22,0.4)] disabled:opacity-50"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Connecting Backend...
-                  </>
-                ) : (
-                  <>
-                    <PhoneCall className="w-4 h-4" />
-                    Submit Inquiry to Backend
-                  </>
-                )}
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-black font-extrabold uppercase text-xs tracking-widest hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(249,115,22,0.4)] disabled:opacity-50"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Saving Inquiry...
+                    </>
+                  ) : (
+                    <>
+                      <PhoneCall className="w-4 h-4" />
+                      Submit & Open WhatsApp
+                    </>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleWhatsAppSend}
+                  className="py-3.5 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold uppercase text-xs tracking-wider transition-colors flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.4)]"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  WhatsApp Direct
+                </button>
+              </div>
             </form>
           </div>
         ) : (
