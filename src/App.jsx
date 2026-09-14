@@ -41,11 +41,13 @@ export default function App() {
       setUser(session?.user || null);
     });
 
+    let lastProgress = -1;
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothTouch: true,
-      touchMultiplier: 1.5,
+      smoothTouch: false,
+      touchMultiplier: 1.2,
     });
 
     lenis.on('scroll', () => {
@@ -53,7 +55,10 @@ export default function App() {
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
         const normProgress = Math.min(1, Math.max(0, window.scrollY / totalScroll));
-        setScrollProgress(normProgress);
+        if (Math.abs(normProgress - lastProgress) > 0.0015) {
+          lastProgress = normProgress;
+          setScrollProgress(normProgress);
+        }
       }
     });
 
@@ -63,19 +68,9 @@ export default function App() {
     }
     requestAnimationFrame(raf);
 
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        const normProgress = Math.min(1, Math.max(0, window.scrollY / totalScroll));
-        setScrollProgress(normProgress);
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
     return () => {
       authListener?.subscription?.unsubscribe();
       lenis.destroy();
-      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

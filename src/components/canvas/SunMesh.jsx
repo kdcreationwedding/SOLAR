@@ -3,31 +3,31 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { SunShader } from './SunShader';
 
+// Pre-allocated static Color Stops (Zero Garbage Collection during animation)
+const c0Core = new THREE.Color("#FFFFFF");
+const c0Glow = new THREE.Color("#FFC72C");
+const c0Rim = new THREE.Color("#F97316");
+
+const c1Core = new THREE.Color("#FFFFFF");
+const c1Glow = new THREE.Color("#FDE047");
+const c1Rim = new THREE.Color("#60A5FA");
+
+const c2Core = new THREE.Color("#FEF08A");
+const c2Glow = new THREE.Color("#F97316");
+const c2Rim = new THREE.Color("#EA580C");
+
+const c3Core = new THREE.Color("#FFC72C");
+const c3Glow = new THREE.Color("#EA580C");
+const c3Rim = new THREE.Color("#DC2626");
+
+const targetCore = new THREE.Color();
+const targetGlow = new THREE.Color();
+const targetRim = new THREE.Color();
+
 export const SunMesh = ({ scrollProgress = 0 }) => {
   const sunRef = useRef();
   const auraRef = useRef();
   const shaderMatRef = useRef();
-
-  // Color Stops across the continuous scroll trajectory (0.0 to 1.0)
-  // Stop 0.0 (Sunrise): White core, Warm Yellow Glow, Orange Rim
-  const c0Core = new THREE.Color("#FFFFFF");
-  const c0Glow = new THREE.Color("#FFC72C");
-  const c0Rim = new THREE.Color("#F97316");
-
-  // Stop 0.4 (Midday): Pure White core, Bright Sun Yellow Glow, Sky Blue Rim
-  const c1Core = new THREE.Color("#FFFFFF");
-  const c1Glow = new THREE.Color("#FDE047");
-  const c1Rim = new THREE.Color("#60A5FA");
-
-  // Stop 0.75 (Golden Hour): Soft Yellow core, Sunset Amber Glow, Deep Orange Rim
-  const c2Core = new THREE.Color("#FEF08A");
-  const c2Glow = new THREE.Color("#F97316");
-  const c2Rim = new THREE.Color("#EA580C");
-
-  // Stop 1.0 (Sunset): Deep Golden core, Rich Sunset Orange Glow, Crimson Sunset Rim
-  const c3Core = new THREE.Color("#FFC72C");
-  const c3Glow = new THREE.Color("#EA580C");
-  const c3Rim = new THREE.Color("#DC2626");
 
   useFrame((state, delta) => {
     if (!sunRef.current || !shaderMatRef.current) return;
@@ -37,19 +37,12 @@ export const SunMesh = ({ scrollProgress = 0 }) => {
 
     const p = Math.min(1, Math.max(0, scrollProgress));
 
-    // Continuous smooth interpolation (Lerp) for position and scale
     let targetX = 0;
     let targetY = 0;
     let targetZ = -4.0;
     let targetScale = 1.5;
 
-    // Continuous multi-stop color interpolation (NO sudden steps!)
-    let targetCore = new THREE.Color();
-    let targetGlow = new THREE.Color();
-    let targetRim = new THREE.Color();
-
     if (p <= 0.4) {
-      // 0.0 -> 0.4: Smooth transition from Sunrise to Midday
       const t = p / 0.4;
       targetX = THREE.MathUtils.lerp(0, 0.4, t);
       targetY = THREE.MathUtils.lerp(0.1, 3.2, t);
@@ -60,7 +53,6 @@ export const SunMesh = ({ scrollProgress = 0 }) => {
       targetGlow.copy(c0Glow).lerp(c1Glow, t);
       targetRim.copy(c0Rim).lerp(c1Rim, t);
     } else if (p <= 0.75) {
-      // 0.4 -> 0.75: Smooth transition from Midday to Golden Hour
       const t = (p - 0.4) / 0.35;
       targetX = THREE.MathUtils.lerp(0.4, 1.8, t);
       targetY = THREE.MathUtils.lerp(3.2, 0.5, t);
@@ -71,7 +63,6 @@ export const SunMesh = ({ scrollProgress = 0 }) => {
       targetGlow.copy(c1Glow).lerp(c2Glow, t);
       targetRim.copy(c1Rim).lerp(c2Rim, t);
     } else {
-      // 0.75 -> 1.0: Smooth transition from Golden Hour to Deep Sunset Footer
       const t = (p - 0.75) / 0.25;
       targetX = THREE.MathUtils.lerp(1.8, 0, t);
       targetY = THREE.MathUtils.lerp(0.5, -2.7, t);
@@ -83,7 +74,6 @@ export const SunMesh = ({ scrollProgress = 0 }) => {
       targetRim.copy(c2Rim).lerp(c3Rim, t);
     }
 
-    // Dampen transforms for silky smooth continuous movement
     sunRef.current.position.x = THREE.MathUtils.damp(sunRef.current.position.x, targetX, 3.5, delta);
     sunRef.current.position.y = THREE.MathUtils.damp(sunRef.current.position.y, targetY, 3.5, delta);
     sunRef.current.position.z = THREE.MathUtils.damp(sunRef.current.position.z, targetZ, 3.5, delta);
@@ -91,12 +81,10 @@ export const SunMesh = ({ scrollProgress = 0 }) => {
     const s = THREE.MathUtils.damp(sunRef.current.scale.x, targetScale, 3.5, delta);
     sunRef.current.scale.set(s, s, s);
 
-    // Continuous smooth color damping (silky fade)
     shaderMatRef.current.uniforms.uColorCore.value.lerp(targetCore, delta * 2.5);
     shaderMatRef.current.uniforms.uColorGlow.value.lerp(targetGlow, delta * 2.5);
     shaderMatRef.current.uniforms.uColorRim.value.lerp(targetRim, delta * 2.5);
 
-    // Outer soft aura halo sync
     if (auraRef.current) {
       auraRef.current.position.copy(sunRef.current.position);
       const auraScale = s * 1.6;
@@ -108,7 +96,7 @@ export const SunMesh = ({ scrollProgress = 0 }) => {
     <group>
       {/* 3D Sun Sphere */}
       <mesh ref={sunRef}>
-        <sphereGeometry args={[1, 64, 64]} />
+        <sphereGeometry args={[1, 48, 48]} />
         <shaderMaterial
           ref={shaderMatRef}
           args={[SunShader]}
@@ -118,7 +106,7 @@ export const SunMesh = ({ scrollProgress = 0 }) => {
 
       {/* Atmospheric Halo */}
       <mesh ref={auraRef}>
-        <sphereGeometry args={[1, 32, 32]} />
+        <sphereGeometry args={[1, 24, 24]} />
         <meshBasicMaterial
           color="#F97316"
           transparent
@@ -130,3 +118,4 @@ export const SunMesh = ({ scrollProgress = 0 }) => {
     </group>
   );
 };
+
