@@ -1,0 +1,26 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGrad6" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#431407"/>
+      <stop offset="60%" stop-color="#9a3412"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#skyGrad6)"/>
+
+  <!-- Sunset Sphere -->
+  <circle cx="400" cy="220" r="100" fill="#ffc72c" opacity="0.95"/>
+  <circle cx="400" cy="220" r="220" fill="#f97316" opacity="0.25"/>
+
+  <!-- Eco Residence Silhouettes -->
+  <path d="M0,320 L150,220 L300,320 L300,500 L0,500 Z" fill="#090d14"/>
+  <polygon points="20,230 150,140 280,230" fill="#f97316" opacity="0.7"/>
+
+  <path d="M480,340 L620,240 L760,340 L760,500 L480,500 Z" fill="#090d14"/>
+  <polygon points="500,250 620,160 740,250" fill="#ffc72c" opacity="0.7"/>
+
+  <!-- Badge -->
+  <rect x="30" y="30" width="370" height="40" rx="20" fill="rgba(12,18,24,0.85)" stroke="rgba(249,115,22,0.5)" stroke-width="1"/>
+  <text x="50" y="55" fill="#ffc72c" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="2">KUTCH SUN VALLEY TOWNSHIP • 6.8 MW</text>
+</svg>

@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sun-progress: 0;
+  --sun-glow-color: #ffb800;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050608;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 184, 0, 0.25);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 184, 0, 0.5);
+}
+
+/* Glassmorphic elements */
+.glass-panel {
+  background: rgba(13, 16, 24, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-gold {
+  background: rgba(20, 22, 34, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 184, 0, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  border-color: rgba(255, 184, 0, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px -10px rgba(255, 184, 0, 0.25);
+}
+
+/* Text Gradients */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFD066 50%, #FF9900 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-sunset {
+  background: linear-gradient(135deg, #FFF 0%, #FFB800 40%, #FF4500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.solar-glow-shadow {
+  box-shadow: 0 0 50px rgba(255, 184, 0, 0.2);
+}
+
+/* Three.js Canvas container styling */
+.canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Lenis smooth scroll fix */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

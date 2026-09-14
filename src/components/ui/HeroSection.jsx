@@ -1,0 +1,67 @@
+import React from 'react';
+import { Logo } from './Logo';
+import { Sun, Sparkles, ChevronRight } from 'lucide-react';
+
+export const HeroSection = ({ onExploreClick, onContactClick }) => {
+  return (
+    <section id="hero" className="relative min-h-screen flex flex-col justify-between pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
+      {/* Top Natural Sky Atmosphere Tag */}
+      <div className="flex justify-center mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-gold border border-amber-400/40 text-amber-300 text-xs font-semibold uppercase tracking-widest animate-bounce shadow-[0_0_20px_rgba(251,191,36,0.3)]">
+          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <span>Natural Solar Energy Architecture</span>
+        </div>
+      </div>
+
+      {/* Main Content Hero Center */}
+      <div className="flex flex-col items-center text-center my-auto max-w-4xl mx-auto">
+        {/* Brand Logo Focal Point */}
+        <div className="mb-8 transform hover:scale-105 transition-transform duration-500">
+          <Logo size="large" />
+        </div>
+
+        {/* Headline with Natural Sky Gradient (White, Sky Blue, Orange, Yellow) */}
+        <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white uppercase leading-[1.08] mb-6 drop-shadow-2xl">
+          POWERING A <br />
+          <span className="bg-gradient-to-r from-white via-amber-300 to-orange-500 bg-clip-text text-transparent">
+            BRIGHTER TOMORROW.
+          </span>
+        </h1>
+
+        {/* Subheadline */}
+        <p className="text-lg sm:text-2xl text-slate-200 max-w-2xl font-light tracking-wide mb-10 leading-relaxed drop-shadow-md">
+          Smart Solar Solutions. Sustainable Energy. A Better Future.
+        </p>
+
+        {/* Action CTAs */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <button
+            onClick={onExploreClick}
+            className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-black font-extrabold uppercase text-xs sm:text-sm tracking-widest hover:brightness-110 transition-all duration-300 shadow-[0_0_30px_rgba(249,115,22,0.5)] flex items-center justify-center gap-3 group"
+          >
+            <span>Explore Solar Solutions</span>
+            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </button>
+
+          <button
+            onClick={onContactClick}
+            className="w-full sm:w-auto px-8 py-4 rounded-full glass-panel hover:glass-panel-gold border border-white/30 text-white font-bold uppercase text-xs sm:text-sm tracking-widest transition-all duration-300 flex items-center justify-center gap-3"
+          >
+            <Sun className="w-4 h-4 text-amber-400" />
+            <span>Talk to Our Experts</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Bottom Scroll Prompt Indicator */}
+      <div className="flex flex-col items-center justify-center gap-2 pt-8 text-slate-300">
+        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-300">
+          Scroll to Witness Sun Rise & Sunset Journey
+        </span>
+        <div className="w-6 h-10 rounded-full border-2 border-amber-400/40 flex items-start justify-center p-1 bg-black/30 backdrop-blur-md">
+          <div className="w-1.5 h-3 bg-amber-400 rounded-full animate-bounce mt-1 shadow-[0_0_10px_#FBBF24]" />
+        </div>
+      </div>
+    </section>
+  );
+};
