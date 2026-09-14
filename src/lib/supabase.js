@@ -49,3 +49,92 @@ export async function submitInquiryToBackend(inquiryData) {
   }
 }
 
+// Authentication Helpers using Supabase Auth & Backend Sync
+
+export async function signUpUser({ email, password, name }) {
+  try {
+    // 1. Supabase Auth Registration
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name
+        }
+      }
+    });
+
+    if (error) throw error;
+
+    // 2. Register backup user in Express Backend
+    try {
+      await fetch('http://localhost:5001/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, name })
+      });
+    } catch (e) {
+      console.log('Backend signup backup notice:', e.message);
+    }
+
+    return { data, error: null };
+  } catch (err) {
+    console.error('Sign Up Error:', err);
+    return { data: null, error: err };
+  }
+}
+
+export async function signInUser({ email, password }) {
+  try {
+    // 1. Supabase Auth Login
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      // Fallback: try Express Backend login
+      const res = await fetch('http://localhost:5001/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const backendData = await res.json();
+      if (backendData.success) {
+        return { data: { user: backendData.user, session: backendData.session }, error: null };
+      }
+      throw error;
+    }
+
+    return { data, error: null };
+  } catch (err) {
+    console.error('Sign In Error:', err);
+    return { data: null, error: err };
+  }
+}
+
+export async function signOutUser() {
+  try {
+    const { error } = await supabase.auth.signOut();
+    return { error };
+  } catch (err) {
+    console.error('Sign Out Error:', err);
+    return { error: err };
+  }
+}
+
+export async function getCurrentUser() {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    return user;
+  } catch (err) {
+    return null;
+  }
+}
+
+export function onAuthStateChange(callback) {
+  return supabase.auth.onAuthStateChange((event, session) => {
+    callback(event, session);
+  });
+}
+

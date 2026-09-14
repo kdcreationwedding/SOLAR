@@ -6,6 +6,8 @@ import { fileURLToPath } from 'url';
 import pkg from 'pg';
 import dotenv from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
+import crypto from 'crypto';
+
 
 dotenv.config();
 const { Pool } = pkg;
@@ -101,6 +103,85 @@ app.post('/api/inquiry', async (req, res) => {
     console.error('Error saving inquiry:', err);
     res.status(500).json({ error: 'Failed to save inquiry.' });
   }
+
+const usersFile = path.join(dataDir, 'users.json');
+if (!fs.existsSync(usersFile)) {
+  fs.writeFileSync(usersFile, JSON.stringify([], null, 2));
+}
+
+// Password Hashing Helper (SHA-256 with Salt)
+const hashPassword = (password) => {
+  return crypto.createHash('sha256').update(password + 'KD_SUN_SALT_2026').digest('hex');
+};
+
+// POST endpoint for user Sign Up
+app.post('/api/auth/signup', (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    const users = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
+    const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+    if (existing) {
+      return res.status(400).json({ error: 'User already exists with this email address.' });
+    }
+
+    const newUser = {
+      id: 'USR_' + Date.now(),
+      name: name || email.split('@')[0],
+      email: email.toLowerCase(),
+      passwordHash: hashPassword(password),
+      role: email.includes('admin') || email.includes('kd') ? 'admin' : 'user',
+      createdAt: new Date().toISOString()
+    };
+
+    users.push(newUser);
+    fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
+
+    console.log('✅ User registered successfully:', newUser.email);
+
+    res.status(200).json({
+      success: true,
+      message: 'User registered successfully!',
+      user: { id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role }
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to complete signup.' });
+  }
+});
+
+// POST endpoint for user Login
+app.post('/api/auth/login', (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    const users = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
+    const targetHash = hashPassword(password);
+
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.passwordHash === targetHash);
+
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email or password.' });
+    }
+
+    const token = 'JWT_TOKEN_' + Buffer.from(`${user.id}:${Date.now()}`).toString('base64');
+
+    console.log('✅ User authenticated successfully:', user.email);
+
+    res.status(200).json({
+      success: true,
+      user: { id: user.id, name: user.name, email: user.email, role: user.role },
+      session: { access_token: token }
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to authenticate user.' });
+  }
 });
 
 // GET endpoint to view all inquiries
@@ -116,3 +197,4 @@ app.get('/api/inquiries', (req, res) => {
 app.listen(PORT, () => {
   console.log(`KD GLOBAL SUN ENERGY Backend API Server running on port ${PORT}`);
 });
+

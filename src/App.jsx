@@ -16,6 +16,9 @@ import { ImpactSection } from './components/ui/ImpactSection';
 import { CtaSection } from './components/ui/CtaSection';
 import { FooterSection } from './components/ui/FooterSection';
 import { Modal } from './components/ui/Modal';
+import { AuthModal } from './components/ui/AuthModal';
+import { AdminInquiriesSection } from './components/ui/AdminInquiriesSection';
+import { onAuthStateChange, signOutUser } from './lib/supabase';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,8 +32,15 @@ function lerpColor(c1, c2, factor) {
 export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [modalState, setModalState] = useState({ isOpen: false, data: null, type: 'solution' });
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    // 1. Subscribe to Supabase Auth State Changes
+    const { data: authListener } = onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -63,10 +73,16 @@ export default function App() {
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
+      authListener?.subscription?.unsubscribe();
       lenis.destroy();
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleLogout = async () => {
+    await signOutUser();
+    setUser(null);
+  };
 
   const openContactModal = () => {
     setModalState({ isOpen: true, data: null, type: 'contact' });
@@ -133,7 +149,13 @@ export default function App() {
       />
 
       {/* Navbar Header */}
-      <Navbar onContactClick={openContactModal} scrollProgress={scrollProgress} />
+      <Navbar
+        onContactClick={openContactModal}
+        onAuthClick={() => setAuthModalOpen(true)}
+        onLogout={handleLogout}
+        user={user}
+        scrollProgress={scrollProgress}
+      />
 
       {/* Main Page Sections */}
       <main className="relative z-10">
@@ -160,6 +182,9 @@ export default function App() {
 
         <ImpactSection />
 
+        {/* Protected Inquiries Dashboard - Only Visible When User is Authenticated */}
+        {user && <AdminInquiriesSection />}
+
         <CtaSection onContactClick={openContactModal} />
       </main>
 
@@ -176,6 +201,16 @@ export default function App() {
         data={modalState.data}
         type={modalState.type}
       />
+
+      {/* Auth Modal Popup (Sign Up & Login) */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        onAuthSuccess={(authUser) => {
+          setUser(authUser);
+        }}
+      />
     </div>
   );
 }
+

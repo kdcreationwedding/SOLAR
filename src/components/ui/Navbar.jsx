@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Logo } from './Logo';
-import { Menu, X, ArrowUpRight, Sun, PhoneCall, MessageSquare } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Sun, PhoneCall, MessageSquare, User, LogOut, Lock } from 'lucide-react';
 
-export const Navbar = ({ onContactClick, scrollProgress = 0 }) => {
+export const Navbar = ({ onContactClick, onAuthClick, onLogout, user }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -29,6 +29,10 @@ export const Navbar = ({ onContactClick, scrollProgress = 0 }) => {
     { label: 'Projects', href: '#projects' },
     { label: 'Impact', href: '#impact' },
   ];
+
+  if (user) {
+    navLinks.push({ label: 'Portal', href: '#admin' });
+  }
 
   return (
     <header
@@ -58,8 +62,35 @@ export const Navbar = ({ onContactClick, scrollProgress = 0 }) => {
           ))}
         </nav>
 
-        {/* Action Buttons (Call + WhatsApp) */}
+        {/* Action Buttons (Auth + Contact) */}
         <div className="hidden sm:flex items-center gap-3">
+          {user ? (
+            <div className="flex items-center gap-2">
+              <a
+                href="#admin"
+                className="px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold flex items-center gap-1.5 hover:bg-amber-500/30 transition-colors"
+              >
+                <User className="w-3.5 h-3.5 text-amber-400" />
+                <span className="max-w-[120px] truncate">{user.user_metadata?.full_name || user.name || user.email?.split('@')[0]}</span>
+              </a>
+              <button
+                onClick={onLogout}
+                title="Log Out"
+                className="p-2 rounded-full bg-rose-500/10 hover:bg-rose-500 hover:text-white border border-rose-500/30 text-rose-400 transition-colors"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={onAuthClick}
+              className="px-4 py-2 rounded-full bg-white/10 hover:bg-amber-500 hover:text-black border border-white/20 text-slate-200 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5"
+            >
+              <Lock className="w-3.5 h-3.5 text-amber-400" />
+              Portal Login
+            </button>
+          )}
+
           <button
             onClick={openWhatsAppDirect}
             className="px-4 py-2 rounded-full bg-emerald-500/20 hover:bg-emerald-500 hover:text-black border border-emerald-500/40 text-emerald-400 text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1.5"
@@ -110,6 +141,24 @@ export const Navbar = ({ onContactClick, scrollProgress = 0 }) => {
           </nav>
 
           <div className="mt-6 flex flex-col gap-3">
+            {user ? (
+              <button
+                onClick={() => { setMobileMenuOpen(false); onLogout(); }}
+                className="w-full py-3.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-400 font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Log Out ({user.email})
+              </button>
+            ) : (
+              <button
+                onClick={() => { setMobileMenuOpen(false); onAuthClick(); }}
+                className="w-full py-3.5 rounded-xl bg-amber-500 text-black font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 shadow-lg"
+              >
+                <Lock className="w-4 h-4" />
+                Portal Sign In / Register
+              </button>
+            )}
+
             <button
               onClick={openWhatsAppDirect}
               className="w-full py-3.5 rounded-xl bg-emerald-500 text-black font-bold uppercase text-xs tracking-wider flex items-center justify-center gap-2 shadow-lg"
@@ -134,3 +183,4 @@ export const Navbar = ({ onContactClick, scrollProgress = 0 }) => {
     </header>
   );
 };
+
