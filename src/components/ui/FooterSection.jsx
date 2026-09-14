@@ -31,7 +31,7 @@ export const FooterSection = ({ onContactSubmit }) => {
 
           <div className="flex flex-wrap items-center gap-2 pt-2">
             <span className="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs font-bold tracking-wider uppercase">
-              Global HQ: GIFT City, India
+              Corporate HQ: GIFT City, Gandhinagar, Gujarat
             </span>
             <span className="px-3 py-1 rounded-full bg-white/10 text-slate-300 text-xs font-semibold">
               Powering tomorrow.
@@ -64,7 +64,7 @@ export const FooterSection = ({ onContactSubmit }) => {
             <div className="flex items-start gap-3">
               <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
               <span>
-                <strong className="text-white block">Corporate Office:</strong>
+                <strong className="text-white block">Corporate HQ Office:</strong>
                 1805–1804, Flex One, GIFT City, Gandhinagar, Gujarat, India.
               </span>
             </div>
@@ -82,7 +82,7 @@ export const FooterSection = ({ onContactSubmit }) => {
             </div>
             <div className="flex items-center gap-3 pt-1">
               <Building className="w-4 h-4 text-amber-400 flex-shrink-0" />
-              <span className="text-[11px] text-slate-300">Regional EPC Support: Ahmedabad • Surat • Rajkot • Jamnagar</span>
+              <span className="text-[11px] text-slate-300">Headquarters: 1805-1804 Flex One, GIFT City</span>
             </div>
           </div>
 

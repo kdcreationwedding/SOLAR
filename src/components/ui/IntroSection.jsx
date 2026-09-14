@@ -48,7 +48,7 @@ export const IntroSection = () => {
                 </div>
               )}
               <div className="absolute bottom-3 left-3 px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md text-amber-300 text-xs font-bold border border-amber-400/30">
-                GIFT City Global HQ
+                GIFT City Corporate HQ
               </div>
             </div>
 
