@@ -14,7 +14,7 @@ export const FooterSection = ({ onContactSubmit }) => {
         <div className="lg:col-span-5 space-y-6">
           <Logo size="large" />
           <p className="text-slate-300 text-sm font-light leading-relaxed max-w-md">
-            KD GLOBAL SUN ENERGY is a premier Gujarat-based solar energy EPC leader specializing in commercial, industrial mega-parks, utility solar projects, and smart microgrid battery storage.
+            KD GLOBAL SUN ENERGY is a premier global solar energy EPC leader specializing in commercial, industrial mega-parks, utility solar projects, and smart microgrid battery storage.
           </p>
 
           {/* Board Directors Summary Badge */}
@@ -31,7 +31,7 @@ export const FooterSection = ({ onContactSubmit }) => {
 
           <div className="flex flex-wrap items-center gap-2 pt-2">
             <span className="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs font-bold tracking-wider uppercase">
-              GIFT City, Gandhinagar, Gujarat
+              Global HQ: GIFT City, India
             </span>
             <span className="px-3 py-1 rounded-full bg-white/10 text-slate-300 text-xs font-semibold">
               Powering tomorrow.
@@ -50,7 +50,7 @@ export const FooterSection = ({ onContactSubmit }) => {
             <li><a href="#leadership" className="hover:text-amber-400 transition-colors">Board of Directors</a></li>
             <li><a href="#solutions" className="hover:text-amber-400 transition-colors">Solar Solutions</a></li>
             <li><a href="#technology" className="hover:text-amber-400 transition-colors">Solar Tech Lab</a></li>
-            <li><a href="#projects" className="hover:text-amber-400 transition-colors">Gujarat Projects</a></li>
+            <li><a href="#projects" className="hover:text-amber-400 transition-colors">Global & India Projects</a></li>
             <li><a href="#impact" className="hover:text-amber-400 transition-colors">Energy Impact Calculator</a></li>
           </ul>
         </div>

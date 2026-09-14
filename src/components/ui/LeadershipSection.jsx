@@ -8,7 +8,7 @@ export const directorsData = [
     role: 'Founder, Chairman & Managing Director (CMD)',
     shortRole: 'Chief Executive & Founder',
     isMain: true,
-    bio: 'Chief Executive Founder and visionary leader guiding KD GLOBAL SUN ENERGY’s nationwide solar EPC growth, strategic utility expansion, and clean energy transition across India.',
+    bio: 'Chief Executive Founder and visionary leader guiding KD GLOBAL SUN ENERGY’s global solar EPC growth, strategic utility expansion, and clean energy transition across India and International markets.',
     image: '/images/director-mahesh.jpg',
     initials: 'MP',
     experience: 'Founder & Main Leader',
@@ -63,7 +63,7 @@ export const LeadershipSection = () => {
           BOARD OF <span className="bg-gradient-to-r from-white via-amber-300 to-orange-500 bg-clip-text text-transparent">DIRECTORS.</span>
         </h2>
         <p className="text-slate-300 text-base sm:text-lg font-light">
-          Led by Founder & CMD Mr. Maheshkumar Parmar alongside Co-Founding Executive Directors driving Gujarat and India toward clean energy independence.
+          Led by Founder & CMD Mr. Maheshkumar Parmar alongside Co-Founding Executive Directors driving global renewable energy transformation.
         </p>
       </div>
 

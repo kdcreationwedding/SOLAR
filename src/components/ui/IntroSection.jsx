@@ -23,7 +23,7 @@ export const IntroSection = () => {
 
           {/* Large Editorial Typography */}
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight mb-8">
-            At <span className="text-amber-400">KD GLOBAL SUN ENERGY</span>, we engineer high-performance renewable power infrastructures that turn endless sunlight into reliable, clean independence across Gujarat and India.
+            At <span className="text-amber-400">KD GLOBAL SUN ENERGY</span>, we engineer high-performance renewable power infrastructures that turn endless sunlight into reliable, clean independence across India and Global Markets.
           </h2>
 
           <p className="text-slate-300 text-base sm:text-xl font-light leading-relaxed mb-10">
@@ -48,7 +48,7 @@ export const IntroSection = () => {
                 </div>
               )}
               <div className="absolute bottom-3 left-3 px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md text-amber-300 text-xs font-bold border border-amber-400/30">
-                Ahmedabad HQ Tower
+                GIFT City Global HQ
               </div>
             </div>
 
@@ -68,7 +68,7 @@ export const IntroSection = () => {
                 </div>
               )}
               <div className="absolute bottom-3 left-3 px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md text-amber-300 text-xs font-bold border border-amber-400/30">
-                Turnkey Solar EPC Site
+                Global Turnkey EPC Site
               </div>
             </div>
           </div>
@@ -100,8 +100,8 @@ export const IntroSection = () => {
                 <Globe className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg mb-1">Gujarat & India Standard</h3>
-                <p className="text-slate-400 text-sm">Turnkey EPC solutions meeting international safety and quality standards.</p>
+                <h3 className="text-white font-bold text-lg mb-1">Global Standards</h3>
+                <p className="text-slate-400 text-sm">Turnkey EPC solutions meeting rigorous international safety and quality standards.</p>
               </div>
             </div>
           </div>

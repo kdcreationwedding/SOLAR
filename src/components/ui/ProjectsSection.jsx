@@ -92,10 +92,10 @@ export const ProjectsSection = ({ onSelectProject }) => {
         <div>
           <div className="inline-flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-widest mb-3">
             <span className="w-8 h-[2px] bg-amber-400" />
-            <span>06 / Gujarat & India Portfolio</span>
+            <span>06 / Global & India Portfolio</span>
           </div>
           <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white uppercase tracking-tight">
-            FEATURED <span className="bg-gradient-to-r from-white via-amber-300 to-orange-500 bg-clip-text text-transparent">GUJARAT PROJECTS.</span>
+            FEATURED <span className="bg-gradient-to-r from-white via-amber-300 to-orange-500 bg-clip-text text-transparent">GLOBAL & INDIA PROJECTS.</span>
           </h2>
         </div>
 
