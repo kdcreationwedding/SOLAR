@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Database, Search, MessageSquare, PhoneCall, RefreshCw, CheckCircle2, User, Mail, Calendar } from 'lucide-react';
+import { Database, Search, MessageSquare, RefreshCw, CheckCircle2, User, Mail, Lock, Key, Eye, EyeOff } from 'lucide-react';
 
 export const AdminInquiriesSection = () => {
   const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [pinInput, setPinInput] = useState('');
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [pinError, setPinError] = useState(false);
 
   const fetchInquiries = async () => {
     setLoading(true);
@@ -22,11 +25,23 @@ export const AdminInquiriesSection = () => {
   };
 
   useEffect(() => {
-    fetchInquiries();
-  }, []);
+    if (isUnlocked) {
+      fetchInquiries();
+    }
+  }, [isUnlocked]);
+
+  const handlePinSubmit = (e) => {
+    e.preventDefault();
+    if (pinInput === '1234' || pinInput === 'admin' || pinInput === 'kd') {
+      setIsUnlocked(true);
+      setPinError(false);
+    } else {
+      setPinError(true);
+    }
+  };
 
   const openWhatsAppReply = (inquiry) => {
-    const text = `Hello ${inquiry.name}! 👋 Thank you for inquiring with KD GLOBAL SUN ENERGY regarding your ${inquiry.capacity} project. We received your request submitted on ${inquiry.submittedAt}. How can we assist you today?`;
+    const text = `Hello ${inquiry.name}! 👋 Thank you for inquiring with KD GLOBAL SUN ENERGY regarding your ${inquiry.capacity} project. We received your request. How can we assist you today?`;
     window.open(`https://wa.me/91${inquiry.phone.replace(/\D/g, '')}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
@@ -37,6 +52,50 @@ export const AdminInquiriesSection = () => {
     i.capacity?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Hidden from public visitors unless unlocked via secret PIN (Default PIN: 1234)
+  if (!isUnlocked) {
+    return (
+      <section id="admin" className="relative py-16 px-4 sm:px-6 lg:px-8 max-w-xl mx-auto z-10 text-center">
+        <div className="glass-panel p-8 rounded-3xl border border-white/10 shadow-2xl space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-400 flex items-center justify-center mx-auto">
+            <Lock className="w-6 h-6" />
+          </div>
+          <div>
+            <h3 className="font-display text-xl font-bold text-white uppercase tracking-tight">
+              Admin Inquiries Portal
+            </h3>
+            <p className="text-xs text-slate-400 mt-1">
+              Private portal for KD GLOBAL SUN ENERGY administration. Enter PIN to view customer inquiries table.
+            </p>
+          </div>
+
+          <form onSubmit={handlePinSubmit} className="flex gap-2 max-w-xs mx-auto pt-2">
+            <input
+              type="password"
+              value={pinInput}
+              onChange={(e) => setPinInput(e.target.value)}
+              placeholder="Enter Admin PIN..."
+              className="flex-1 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 text-center"
+            />
+            <button
+              type="submit"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold text-xs uppercase hover:brightness-110 transition-all flex items-center gap-1"
+            >
+              <Key className="w-3.5 h-3.5" />
+              <span>Unlock</span>
+            </button>
+          </form>
+
+          {pinError && (
+            <p className="text-xs text-rose-400 font-semibold animate-bounce">
+              Incorrect PIN. Try 1234 or admin.
+            </p>
+          )}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="admin" className="relative py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
       <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-amber-500/30 shadow-2xl relative overflow-hidden">
@@ -45,7 +104,7 @@ export const AdminInquiriesSection = () => {
           <div>
             <div className="inline-flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-widest mb-2">
               <Database className="w-4 h-4 text-amber-400" />
-              <span>Live Inquiries Dashboard</span>
+              <span>Private Admin Inquiries Dashboard</span>
             </div>
             <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white uppercase tracking-tight">
               CUSTOMER <span className="bg-gradient-to-r from-white via-amber-300 to-orange-500 bg-clip-text text-transparent">INQUIRIES TABLE.</span>
@@ -61,9 +120,13 @@ export const AdminInquiriesSection = () => {
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
               <span>Refresh Inquiries</span>
             </button>
-            <span className="px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold font-mono">
-              Total: {inquiries.length}
-            </span>
+            <button
+              onClick={() => setIsUnlocked(false)}
+              className="px-3 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500 hover:text-white border border-rose-500/40 text-rose-400 text-xs font-bold transition-colors flex items-center gap-1.5"
+            >
+              <EyeOff className="w-3.5 h-3.5" />
+              <span>Lock Table</span>
+            </button>
           </div>
         </div>
 
@@ -75,7 +138,7 @@ export const AdminInquiriesSection = () => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search by name, phone, email, or solar capacity..."
+              placeholder="Search by name, phone, email, or capacity..."
               className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-400"
             />
           </div>
@@ -140,7 +203,7 @@ export const AdminInquiriesSection = () => {
                 <tr>
                   <td colSpan="7" className="p-8 text-center text-slate-400">
                     <CheckCircle2 className="w-8 h-8 text-amber-400/60 mx-auto mb-2" />
-                    <span>No inquiries submitted yet. Form submissions will appear live in this table.</span>
+                    <span>No inquiries submitted yet. Customer submissions will appear here.</span>
                   </td>
                 </tr>
               )}

@@ -28,7 +28,6 @@ export const Navbar = ({ onContactClick, scrollProgress = 0 }) => {
     { label: 'Technology', href: '#technology' },
     { label: 'Projects', href: '#projects' },
     { label: 'Impact', href: '#impact' },
-    { label: 'Inquiries Table', href: '#admin' },
   ];
 
   return (
