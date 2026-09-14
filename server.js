@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import pkg from 'pg';
 import dotenv from 'dotenv';
+import { createClient } from '@supabase/supabase-js';
 
 dotenv.config();
 const { Pool } = pkg;
@@ -30,18 +31,19 @@ if (!fs.existsSync(inquiriesFile)) {
   fs.writeFileSync(inquiriesFile, JSON.stringify([], null, 2));
 }
 
-// PostgreSQL Pool for new Supabase project: nndqdduyahvkmlyztgbt
-const dbUrl = process.env.DATABASE_URL || 'postgresql://postgres:[YOUR-PASSWORD]@db.nndqdduyahvkmlyztgbt.supabase.co:5432/postgres';
-let pgPool = null;
+const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://qrljgqlisbfchspwgiwe.supabase.co';
+const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFybGpncWxpc2JmY2hzcHdnaXdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5ODg2NzAsImV4cCI6MjEwMzU2NDY3MH0.kSfc6SkoyWIAjMIXg_F15CSY_ukIyNp8X2L9_Opb79I';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// PostgreSQL Pool (optional direct connection)
+const dbUrl = process.env.DATABASE_URL || '';
+let pgPool = null;
 if (dbUrl && !dbUrl.includes('[YOUR-PASSWORD]')) {
   pgPool = new Pool({
     connectionString: dbUrl,
     ssl: { rejectUnauthorized: false }
   });
-  console.log('🔗 PostgreSQL Pool connected to db.nndqdduyahvkmlyztgbt.supabase.co');
-} else {
-  console.log('⚡ PostgreSQL ready for db.nndqdduyahvkmlyztgbt.supabase.co (Set database password in .env to activate direct SQL queries)');
+  console.log('🔗 PostgreSQL Pool connected to Supabase');
 }
 
 // POST endpoint to submit inquiry for KD GLOBAL SUN ENERGY
@@ -68,17 +70,24 @@ app.post('/api/inquiry', async (req, res) => {
     currentData.unshift(newInquiry);
     fs.writeFileSync(inquiriesFile, JSON.stringify(currentData, null, 2));
 
-    // 2. If PostgreSQL Pool is active, save directly to Supabase Postgres database
-    if (pgPool) {
-      try {
-        await pgPool.query(
-          `INSERT INTO inquiries (id, name, email, phone, capacity, details, status) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-          [newInquiry.id, name, email, phone, capacity || '', details || '', 'new']
-        );
-        console.log('✅ Inquiry saved to Supabase PostgreSQL Database!');
-      } catch (pgErr) {
-        console.warn('PostgreSQL query note:', pgErr.message);
-      }
+    // 2. Save directly to Supabase DB inquiries table
+    try {
+      const { data, error } = await supabase
+        .from('inquiries')
+        .insert([
+          {
+            name,
+            email,
+            phone,
+            capacity: capacity || 'Not specified',
+            details: details || '',
+            status: 'new'
+          }
+        ]);
+      if (error) console.warn('Supabase DB insertion notice:', error.message);
+      else console.log('✅ Inquiry saved to Supabase DB!');
+    } catch (sbErr) {
+      console.warn('Supabase error:', sbErr.message);
     }
 
     console.log('✅ KD Global Sun Energy Inquiry Saved:', newInquiry);
