@@ -14,6 +14,7 @@ import { TechSection } from './components/ui/TechSection';
 import { ProjectsSection } from './components/ui/ProjectsSection';
 import { ImpactSection } from './components/ui/ImpactSection';
 import { CtaSection } from './components/ui/CtaSection';
+import { SiloSeoHub } from './components/ui/SiloSeoHub';
 import { FooterSection } from './components/ui/FooterSection';
 import { Modal } from './components/ui/Modal';
 import { AuthModal } from './components/ui/AuthModal';
@@ -222,6 +223,8 @@ export default function App() {
 
         {/* Protected Inquiries Dashboard - Only Visible When User is Authenticated */}
         {user && <AdminInquiriesSection />}
+
+        <SiloSeoHub onInquire={openContactModal} />
 
         <CtaSection onContactClick={openContactModal} />
       </main>
