@@ -21,16 +21,23 @@ const PORT = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json());
 
-const dataDir = path.join(__dirname, 'data');
+const isVercel = process.env.VERCEL || process.env.NODE_ENV === 'production';
+const dataDir = isVercel ? '/tmp/data' : path.join(__dirname, 'data');
 const inquiriesFile = path.join(dataDir, 'inquiries.json');
+const usersFile = path.join(dataDir, 'users.json');
 
-// Ensure local data directory exists
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
-
-if (!fs.existsSync(inquiriesFile)) {
-  fs.writeFileSync(inquiriesFile, JSON.stringify([], null, 2));
+try {
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+  if (!fs.existsSync(inquiriesFile)) {
+    fs.writeFileSync(inquiriesFile, JSON.stringify([], null, 2));
+  }
+  if (!fs.existsSync(usersFile)) {
+    fs.writeFileSync(usersFile, JSON.stringify([], null, 2));
+  }
+} catch (fsInitErr) {
+  console.warn('Notice: Local filesystem restricted (serverless env):', fsInitErr.message);
 }
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://qrljgqlisbfchspwgiwe.supabase.co';
@@ -67,10 +74,16 @@ app.post('/api/inquiry', async (req, res) => {
       submittedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
     };
 
-    // 1. Save to local JSON backup
-    const currentData = JSON.parse(fs.readFileSync(inquiriesFile, 'utf8'));
-    currentData.unshift(newInquiry);
-    fs.writeFileSync(inquiriesFile, JSON.stringify(currentData, null, 2));
+    // 1. Save to local JSON backup if permitted
+    try {
+      if (fs.existsSync(inquiriesFile)) {
+        const currentData = JSON.parse(fs.readFileSync(inquiriesFile, 'utf8'));
+        currentData.unshift(newInquiry);
+        fs.writeFileSync(inquiriesFile, JSON.stringify(currentData, null, 2));
+      }
+    } catch (fsErr) {
+      console.warn('Local storage notice (serverless env):', fsErr.message);
+    }
 
     // 2. Save directly to Supabase DB inquiries table
     try {
@@ -105,11 +118,6 @@ app.post('/api/inquiry', async (req, res) => {
   }
 });
 
-const usersFile = path.join(dataDir, 'users.json');
-if (!fs.existsSync(usersFile)) {
-  fs.writeFileSync(usersFile, JSON.stringify([], null, 2));
-}
-
 // Password Hashing Helper (SHA-256 with Salt)
 const hashPassword = (password) => {
   return crypto.createHash('sha256').update(password + 'KD_SUN_SALT_2026').digest('hex');
@@ -123,7 +131,13 @@ app.post('/api/auth/signup', (req, res) => {
       return res.status(400).json({ error: 'Email and password are required.' });
     }
 
-    const users = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
+    let users = [];
+    try {
+      if (fs.existsSync(usersFile)) {
+        users = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
+      }
+    } catch (e) { users = []; }
+
     const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
     if (existing) {
@@ -140,7 +154,11 @@ app.post('/api/auth/signup', (req, res) => {
     };
 
     users.push(newUser);
-    fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
+    try {
+      if (fs.existsSync(usersFile)) {
+        fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
+      }
+    } catch (e) {}
 
     console.log('✅ User registered successfully:', newUser.email);
 
@@ -162,9 +180,14 @@ app.post('/api/auth/login', (req, res) => {
       return res.status(400).json({ error: 'Email and password are required.' });
     }
 
-    const users = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
-    const targetHash = hashPassword(password);
+    let users = [];
+    try {
+      if (fs.existsSync(usersFile)) {
+        users = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
+      }
+    } catch (e) { users = []; }
 
+    const targetHash = hashPassword(password);
     const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.passwordHash === targetHash);
 
     if (!user) {
@@ -188,14 +211,21 @@ app.post('/api/auth/login', (req, res) => {
 // GET endpoint to view all inquiries
 app.get('/api/inquiries', (req, res) => {
   try {
-    const data = JSON.parse(fs.readFileSync(inquiriesFile, 'utf8'));
+    let data = [];
+    if (fs.existsSync(inquiriesFile)) {
+      data = JSON.parse(fs.readFileSync(inquiriesFile, 'utf8'));
+    }
     res.status(200).json({ count: data.length, inquiries: data });
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch inquiries.' });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`KD GLOBAL SUN ENERGY Backend API Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`KD GLOBAL SUN ENERGY Backend API Server running on port ${PORT}`);
+  });
+}
+
+export default app;
 
