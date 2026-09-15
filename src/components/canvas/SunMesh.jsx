@@ -42,32 +42,35 @@ export const SunMesh = ({ scrollProgress = 0 }) => {
     let targetZ = -4.0;
     let targetScale = 1.5;
 
-    if (p <= 0.4) {
-      const t = p / 0.4;
-      targetX = THREE.MathUtils.lerp(0, 0.4, t);
-      targetY = THREE.MathUtils.lerp(0.1, 3.2, t);
+    if (p <= 0.35) {
+      // 0.0 -> 0.35: Morning Sunrise -> Midday Apex Rise
+      const t = p / 0.35;
+      targetX = THREE.MathUtils.lerp(0, 0.5, t);
+      targetY = THREE.MathUtils.lerp(0.1, 3.4, t);
       targetZ = THREE.MathUtils.lerp(-3.6, -5.5, t);
-      targetScale = THREE.MathUtils.lerp(1.4, 2.3, t);
+      targetScale = THREE.MathUtils.lerp(1.4, 2.4, t);
 
       targetCore.copy(c0Core).lerp(c1Core, t);
       targetGlow.copy(c0Glow).lerp(c1Glow, t);
       targetRim.copy(c0Rim).lerp(c1Rim, t);
-    } else if (p <= 0.75) {
-      const t = (p - 0.4) / 0.35;
-      targetX = THREE.MathUtils.lerp(0.4, 1.8, t);
-      targetY = THREE.MathUtils.lerp(3.2, 0.5, t);
+    } else if (p <= 0.70) {
+      // 0.35 -> 0.70: Midday Apex -> Golden Evening Sunset Descent
+      const t = (p - 0.35) / 0.35;
+      targetX = THREE.MathUtils.lerp(0.5, 1.9, t);
+      targetY = THREE.MathUtils.lerp(3.4, 0.4, t);
       targetZ = THREE.MathUtils.lerp(-5.5, -4.2, t);
-      targetScale = THREE.MathUtils.lerp(2.3, 1.8, t);
+      targetScale = THREE.MathUtils.lerp(2.4, 1.8, t);
 
       targetCore.copy(c1Core).lerp(c2Core, t);
       targetGlow.copy(c1Glow).lerp(c2Glow, t);
       targetRim.copy(c1Rim).lerp(c2Rim, t);
     } else {
-      const t = (p - 0.75) / 0.25;
-      targetX = THREE.MathUtils.lerp(1.8, 0, t);
-      targetY = THREE.MathUtils.lerp(0.5, -2.7, t);
-      targetZ = THREE.MathUtils.lerp(-4.2, -3.6, t);
-      targetScale = THREE.MathUtils.lerp(1.8, 1.3, t);
+      // 0.70 -> 1.00: Golden Sunset -> Starry Midnight Dip Below Horizon
+      const t = (p - 0.70) / 0.30;
+      targetX = THREE.MathUtils.lerp(1.9, 0, t);
+      targetY = THREE.MathUtils.lerp(0.4, -3.2, t);
+      targetZ = THREE.MathUtils.lerp(-4.2, -3.5, t);
+      targetScale = THREE.MathUtils.lerp(1.8, 1.1, t);
 
       targetCore.copy(c2Core).lerp(c3Core, t);
       targetGlow.copy(c2Glow).lerp(c3Glow, t);

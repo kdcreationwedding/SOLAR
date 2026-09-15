@@ -100,14 +100,14 @@ export default function App() {
     const p = Math.min(1, Math.max(0, scrollProgress));
 
     const stops = [
-      { p: 0.0,  top: [11, 18, 30],   bot: [31, 51, 84] },   // Sunrise Dawn
-      { p: 0.45, top: [11, 25, 46],   bot: [30, 58, 138] },  // Midday Azure Blue
-      { p: 0.75, top: [30, 27, 75],   bot: [194, 65, 12] },  // Golden Hour Amber
-      { p: 1.00, top: [69, 26, 3],    bot: [23, 37, 84] }    // Deep Sunset Footer
+      { p: 0.00, top: [15, 23, 42],   bot: [251, 191, 36] },  // 01. Morning Sunrise Dawn (Golden Yellow + Coral)
+      { p: 0.35, top: [12, 45, 95],   bot: [56, 189, 248] },  // 02. Midday Azure Sky (Bright Sky Blue)
+      { p: 0.70, top: [67, 20, 48],   bot: [194, 65, 12]  },  // 03. Evening Sunset (Fiery Sunset Amber & Twilight)
+      { p: 1.00, top: [4, 8, 20],     bot: [15, 23, 42]   }   // 04. Starry Midnight (Cosmic Night Sky)
     ];
 
-    let topColor = 'rgb(11, 18, 30)';
-    let botColor = 'rgb(31, 51, 84)';
+    let topColor = 'rgb(15, 23, 42)';
+    let botColor = 'rgb(251, 191, 36)';
 
     if (p <= stops[1].p) {
       const t = p / stops[1].p;
