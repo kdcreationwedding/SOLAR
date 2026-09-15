@@ -103,6 +103,7 @@ app.post('/api/inquiry', async (req, res) => {
     console.error('Error saving inquiry:', err);
     res.status(500).json({ error: 'Failed to save inquiry.' });
   }
+});
 
 const usersFile = path.join(dataDir, 'users.json');
 if (!fs.existsSync(usersFile)) {
