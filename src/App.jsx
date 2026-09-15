@@ -35,11 +35,11 @@ export default function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('kd_theme') || 'light';
+    return localStorage.getItem('kd_theme') || 'dark';
   });
 
   const toggleTheme = () => {
-    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(nextTheme);
     localStorage.setItem('kd_theme', nextTheme);
   };
