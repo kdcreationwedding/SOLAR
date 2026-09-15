@@ -5,11 +5,11 @@ import { Sun, Sparkles, ChevronRight } from 'lucide-react';
 export const HeroSection = ({ onExploreClick, onContactClick }) => {
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-between pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
-      {/* Top Natural Sky Atmosphere Tag */}
+      {/* Top Natural Sky & Eco Energy Atmosphere Tag */}
       <div className="flex justify-center mb-4">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-gold border border-amber-400/40 text-amber-300 text-xs font-semibold uppercase tracking-widest animate-bounce shadow-[0_0_20px_rgba(251,191,36,0.3)]">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-400/40 text-emerald-300 text-xs font-semibold uppercase tracking-widest animate-bounce shadow-[0_0_20px_rgba(16,185,129,0.3)]">
           <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-          <span>Natural Solar Energy Architecture</span>
+          <span>Eco-Smart Solar Energy Architecture</span>
         </div>
       </div>
 
@@ -20,24 +20,24 @@ export const HeroSection = ({ onExploreClick, onContactClick }) => {
           <Logo size="large" />
         </div>
 
-        {/* Headline with Natural Sky Gradient (White, Sky Blue, Orange, Yellow) */}
+        {/* Headline with Brand Tri-Gradient (Blue K, Emerald D, Sun Gold) */}
         <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white uppercase leading-[1.08] mb-6 drop-shadow-2xl">
           POWERING A <br />
-          <span className="bg-gradient-to-r from-white via-amber-300 to-orange-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-blue-400 via-emerald-300 to-amber-400 bg-clip-text text-transparent">
             BRIGHTER TOMORROW.
           </span>
         </h1>
 
         {/* Subheadline */}
         <p className="text-lg sm:text-2xl text-slate-200 max-w-2xl font-light tracking-wide mb-10 leading-relaxed drop-shadow-md">
-          Smart Solar Solutions. Sustainable Energy. A Better Future.
+          Smart Solar Solutions. Sustainable Green Power. A Better Future.
         </p>
 
         {/* Action CTAs */}
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <button
             onClick={onExploreClick}
-            className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-black font-extrabold uppercase text-xs sm:text-sm tracking-widest hover:brightness-110 transition-all duration-300 shadow-[0_0_30px_rgba(249,115,22,0.5)] flex items-center justify-center gap-3 group"
+            className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 via-emerald-500 to-amber-500 text-white font-extrabold uppercase text-xs sm:text-sm tracking-widest hover:brightness-110 transition-all duration-300 shadow-[0_0_30px_rgba(16,185,129,0.4)] flex items-center justify-center gap-3 group"
           >
             <span>Explore Solar Solutions</span>
             <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -45,7 +45,7 @@ export const HeroSection = ({ onExploreClick, onContactClick }) => {
 
           <button
             onClick={onContactClick}
-            className="w-full sm:w-auto px-8 py-4 rounded-full glass-panel hover:glass-panel-gold border border-white/30 text-white font-bold uppercase text-xs sm:text-sm tracking-widest transition-all duration-300 flex items-center justify-center gap-3"
+            className="w-full sm:w-auto px-8 py-4 rounded-full glass-panel hover:border-emerald-400/50 border border-white/30 text-white font-bold uppercase text-xs sm:text-sm tracking-widest transition-all duration-300 flex items-center justify-center gap-3"
           >
             <Sun className="w-4 h-4 text-amber-400" />
             <span>Talk to Our Experts</span>
