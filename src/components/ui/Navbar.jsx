@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Logo } from './Logo';
-import { Menu, X, ArrowUpRight, Sun, PhoneCall, MessageSquare, User, LogOut, Lock } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Sun, Moon, PhoneCall, MessageSquare, User, LogOut, Lock } from 'lucide-react';
 
-export const Navbar = ({ onContactClick, onAuthClick, onLogout, user }) => {
+export const Navbar = ({ onContactClick, onAuthClick, onLogout, user, theme = 'light', onToggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -61,6 +61,15 @@ export const Navbar = ({ onContactClick, onAuthClick, onLogout, user }) => {
 
         {/* Desktop Action Buttons */}
         <div className="hidden md:flex items-center gap-2.5">
+          {/* Theme Toggle Button (Light/Dark Switch) */}
+          <button
+            onClick={onToggleTheme}
+            title={theme === 'light' ? "Switch to Dark Theme" : "Switch to Light Theme"}
+            className="p-2 rounded-full bg-white/10 hover:bg-emerald-500 hover:text-black border border-white/20 text-amber-300 font-bold transition-all flex items-center justify-center shadow-md"
+          >
+            {theme === 'light' ? <Moon className="w-4 h-4 text-slate-800" /> : <Sun className="w-4 h-4 text-amber-400" />}
+          </button>
+
           {/* User Auth Status */}
           {user ? (
             <div className="flex items-center gap-1.5">

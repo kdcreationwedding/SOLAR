@@ -95,3 +95,80 @@ html.lenis, html.lenis body {
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+/* Light Theme Styling Overrides */
+.theme-light .glass-panel {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.1) !important;
+}
+
+.theme-light .glass-panel-gold {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  box-shadow: 0 12px 36px -10px rgba(16, 185, 129, 0.15) !important;
+}
+
+.theme-light .text-white {
+  color: #0F172A !important;
+}
+
+.theme-light .text-slate-100 {
+  color: #0F172A !important;
+}
+
+.theme-light .text-slate-200 {
+  color: #1E293B !important;
+}
+
+.theme-light .text-slate-300 {
+  color: #334155 !important;
+}
+
+.theme-light .text-slate-400 {
+  color: #475569 !important;
+}
+
+.theme-light .bg-[#0B0D14],
+.theme-light .bg-[#08090C],
+.theme-light .bg-[#0F172A],
+.theme-light .bg-[#050608]/90 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-light .bg-white\/5 {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+}
+
+.theme-light .bg-white\/10 {
+  background-color: rgba(226, 232, 240, 0.9) !important;
+}
+
+.theme-light .border-white\/10 {
+  border-color: rgba(203, 213, 225, 0.8) !important;
+}
+
+.theme-light .border-white\/15 {
+  border-color: rgba(203, 213, 225, 0.9) !important;
+}
+
+.theme-light .border-white\/20 {
+  border-color: rgba(148, 163, 184, 0.6) !important;
+}
+
+.theme-light .border-white\/30 {
+  border-color: rgba(148, 163, 184, 0.8) !important;
+}
+
+.theme-light ::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+
+.theme-light ::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.4);
+}
+

@@ -34,6 +34,15 @@ export default function App() {
   const [modalState, setModalState] = useState({ isOpen: false, data: null, type: 'solution' });
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('kd_theme') || 'light';
+  });
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
+    localStorage.setItem('kd_theme', nextTheme);
+  };
 
   useEffect(() => {
     // 1. Subscribe to Supabase Auth State Changes
@@ -99,11 +108,39 @@ export default function App() {
   const getSkyBackground = () => {
     const p = Math.min(1, Math.max(0, scrollProgress));
 
+    if (theme === 'light') {
+      const stops = [
+        { p: 0.00, top: [255, 255, 255], bot: [248, 250, 252] }, // 01. Pearl White
+        { p: 0.35, top: [248, 250, 252], bot: [224, 242, 254] }, // 02. Solar Sky Blue Light
+        { p: 0.70, top: [253, 244, 255], bot: [254, 243, 199] }, // 03. Sunset Pearl Gold
+        { p: 1.00, top: [241, 245, 249], bot: [226, 232, 240] }  // 04. Pearl Slate Light
+      ];
+
+      let topColor = 'rgb(255, 255, 255)';
+      let botColor = 'rgb(248, 250, 252)';
+
+      if (p <= stops[1].p) {
+        const t = p / stops[1].p;
+        topColor = lerpColor(stops[0].top, stops[1].top, t);
+        botColor = lerpColor(stops[0].bot, stops[1].bot, t);
+      } else if (p <= stops[2].p) {
+        const t = (p - stops[1].p) / (stops[2].p - stops[1].p);
+        topColor = lerpColor(stops[1].top, stops[2].top, t);
+        botColor = lerpColor(stops[1].bot, stops[2].bot, t);
+      } else {
+        const t = (p - stops[2].p) / (stops[3].p - stops[2].p);
+        topColor = lerpColor(stops[2].top, stops[3].top, t);
+        botColor = lerpColor(stops[2].bot, stops[3].bot, t);
+      }
+
+      return `linear-gradient(to bottom, ${topColor} 0%, ${botColor} 100%)`;
+    }
+
     const stops = [
-      { p: 0.00, top: [15, 23, 42],   bot: [251, 191, 36] },  // 01. Morning Sunrise Dawn (Golden Yellow + Coral)
-      { p: 0.35, top: [12, 45, 95],   bot: [56, 189, 248] },  // 02. Midday Azure Sky (Bright Sky Blue)
-      { p: 0.70, top: [67, 20, 48],   bot: [194, 65, 12]  },  // 03. Evening Sunset (Fiery Sunset Amber & Twilight)
-      { p: 1.00, top: [4, 8, 20],     bot: [15, 23, 42]   }   // 04. Starry Midnight (Cosmic Night Sky)
+      { p: 0.00, top: [15, 23, 42],   bot: [251, 191, 36] },  // 01. Morning Sunrise Dawn
+      { p: 0.35, top: [12, 45, 95],   bot: [56, 189, 248] },  // 02. Midday Azure Sky
+      { p: 0.70, top: [67, 20, 48],   bot: [194, 65, 12]  },  // 03. Evening Sunset
+      { p: 1.00, top: [4, 8, 20],     bot: [15, 23, 42]   }   // 04. Starry Midnight
     ];
 
     let topColor = 'rgb(15, 23, 42)';
@@ -128,7 +165,9 @@ export default function App() {
 
   return (
     <div
-      className="relative min-h-screen text-slate-100 transition-[background] duration-500 ease-out overflow-x-hidden selection:bg-amber-400 selection:text-black"
+      className={`relative min-h-screen transition-[background] duration-500 ease-out overflow-x-hidden selection:bg-amber-400 selection:text-black ${
+        theme === 'light' ? 'theme-light text-slate-900' : 'theme-dark text-slate-100'
+      }`}
       style={{ background: getSkyBackground() }}
     >
       {/* 3D WebGL Background Canvas */}
@@ -139,7 +178,9 @@ export default function App() {
         className="fixed inset-0 pointer-events-none transition-opacity duration-1000 ease-out z-0"
         style={{
           opacity: Math.max(0, (scrollProgress - 0.6) * 2.5),
-          background: 'radial-gradient(ellipse at bottom, rgba(249, 115, 22, 0.3) 0%, rgba(255, 199, 44, 0.12) 50%, transparent 80%)'
+          background: theme === 'light'
+            ? 'radial-gradient(ellipse at bottom, rgba(16, 185, 129, 0.15) 0%, rgba(255, 184, 0, 0.1) 50%, transparent 80%)'
+            : 'radial-gradient(ellipse at bottom, rgba(249, 115, 22, 0.3) 0%, rgba(255, 199, 44, 0.12) 50%, transparent 80%)'
         }}
       />
 
@@ -149,6 +190,8 @@ export default function App() {
         onAuthClick={() => setAuthModalOpen(true)}
         onLogout={handleLogout}
         user={user}
+        theme={theme}
+        onToggleTheme={toggleTheme}
         scrollProgress={scrollProgress}
       />
 
