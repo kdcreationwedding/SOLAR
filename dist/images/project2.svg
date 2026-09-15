@@ -1,0 +1,40 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="60%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="panelGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#skyGrad2)"/>
+
+  <!-- Sun Rays -->
+  <circle cx="680" cy="90" r="60" fill="#ffffff" opacity="0.95"/>
+  <circle cx="680" cy="90" r="150" fill="#fde047" opacity="0.25"/>
+
+  <!-- Industrial Substation & Factory Silhouettes -->
+  <rect x="0" y="240" width="800" height="260" fill="#090d14"/>
+
+  <!-- Industrial Roof Solar Array -->
+  <g transform="translate(60, 260)">
+    <polygon points="0,70 140,0 340,0 200,70" fill="url(#panelGrad2)" stroke="#60a5fa" stroke-width="1.5"/>
+    <polygon points="220,70 360,0 560,0 420,70" fill="url(#panelGrad2)" stroke="#60a5fa" stroke-width="1.5"/>
+  </g>
+
+  <g transform="translate(20, 350)">
+    <polygon points="0,90 180,0 420,0 240,90" fill="url(#panelGrad2)" stroke="#ffc72c" stroke-width="2"/>
+    <polygon points="260,90 440,0 680,0 500,90" fill="url(#panelGrad2)" stroke="#ffc72c" stroke-width="2"/>
+  </g>
+
+  <!-- Transmission Substation Pillars -->
+  <path d="M620,180 L660,320 M660,180 L620,320 M640,160 L640,340 M610,220 L670,220 M615,260 L665,260" stroke="#60a5fa" stroke-width="2"/>
+
+  <!-- Badge -->
+  <rect x="30" y="30" width="340" height="40" rx="20" fill="rgba(12,18,24,0.85)" stroke="rgba(96,165,250,0.5)" stroke-width="1"/>
+  <text x="50" y="55" fill="#60a5fa" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="2">DHOLERA SIR MEGA SOLAR • 85 MW</text>
+</svg>

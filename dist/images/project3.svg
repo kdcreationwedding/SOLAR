@@ -1,0 +1,34 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#431407"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="panelGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#skyGrad3)"/>
+
+  <!-- Golden Hour Sunset -->
+  <circle cx="200" cy="180" r="90" fill="#ffc72c" opacity="0.9"/>
+  <circle cx="200" cy="180" r="180" fill="#f97316" opacity="0.3"/>
+
+  <!-- Factory Rooftop Complex -->
+  <polygon points="50,300 350,220 750,300 450,400" fill="#090d14" stroke="#f97316" stroke-width="1.5"/>
+
+  <!-- Commercial Rooftop Solar Cell Arrays -->
+  <g transform="translate(100, 260)">
+    <polygon points="0,30 180,-20 320,-20 140,30" fill="url(#panelGrad3)" stroke="#ffc72c" stroke-width="1.5"/>
+    <polygon points="160,30 340,-20 480,-20 300,30" fill="url(#panelGrad3)" stroke="#ffc72c" stroke-width="1.5"/>
+    <polygon points="40,70 220,20 360,20 180,70" fill="url(#panelGrad3)" stroke="#ffc72c" stroke-width="1.5"/>
+    <polygon points="200,70 380,20 520,20 340,70" fill="url(#panelGrad3)" stroke="#ffc72c" stroke-width="1.5"/>
+  </g>
+
+  <!-- Badge -->
+  <rect x="30" y="30" width="370" height="40" rx="20" fill="rgba(12,18,24,0.85)" stroke="rgba(249,115,22,0.5)" stroke-width="1"/>
+  <text x="50" y="55" fill="#ffc72c" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="2">SANAND AUTOMOTIVE HUB • 18.5 MW</text>
+</svg>
