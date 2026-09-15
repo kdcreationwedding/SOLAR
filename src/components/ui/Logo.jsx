@@ -9,6 +9,8 @@ export const Logo = ({ size = "medium", className = "" }) => {
       <img
         src="/logo.png"
         alt="KD GLOBAL SUN ENERGY PRIVATE LIMITED"
+        decoding="async"
+        fetchpriority="high"
         className={`object-contain filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 ${
           isLarge
             ? 'h-20 sm:h-28 max-w-[280px] sm:max-w-[460px]'
