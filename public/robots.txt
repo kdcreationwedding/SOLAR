@@ -1,0 +1,5 @@
+# robots.txt for KD GLOBAL SUN ENERGY
+User-agent: *
+Allow: /
+
+Sitemap: https://kdglobalsunenergy.com/sitemap.xml
