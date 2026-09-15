@@ -79,19 +79,10 @@ export const LeadershipSection = () => {
           <div className="flex flex-col md:flex-row items-center gap-8 pt-4 sm:pt-0">
             {/* Main Emblem Insignia */}
             <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-br from-amber-300 via-amber-500 to-orange-500 p-1 shadow-[0_0_30px_rgba(251,191,36,0.5)] flex-shrink-0">
-              {!imgErrors[mainDirector.id] ? (
-                <img
-                  src={mainDirector.image}
-                  alt={mainDirector.name}
-                  onError={() => handleImageError(mainDirector.id)}
-                  className="w-full h-full object-cover rounded-[22px]"
-                />
-              ) : (
-                <div className="w-full h-full rounded-[22px] bg-[#0c1218] flex flex-col items-center justify-center font-display font-black text-4xl text-amber-300 tracking-wider">
-                  <span>{mainDirector.initials}</span>
-                  <span className="w-8 h-[2px] bg-amber-400 mt-1" />
-                </div>
-              )}
+              <div className="w-full h-full rounded-[22px] bg-[#0c1218] flex flex-col items-center justify-center font-display font-black text-4xl text-amber-300 tracking-wider border border-amber-400/30">
+                <span>{mainDirector.initials}</span>
+                <span className="w-8 h-[2px] bg-amber-400 mt-1" />
+              </div>
             </div>
 
             {/* Main Info */}
@@ -126,19 +117,10 @@ export const LeadershipSection = () => {
             <div>
               <div className="flex items-center justify-between mb-6">
                 <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-amber-600 p-0.5 shadow-[0_0_20px_rgba(251,191,36,0.3)] overflow-hidden">
-                  {!imgErrors[director.id] ? (
-                    <img
-                      src={director.image}
-                      alt={director.name}
-                      onError={() => handleImageError(director.id)}
-                      className="w-full h-full object-cover rounded-[14px]"
-                    />
-                  ) : (
-                    <div className="w-full h-full rounded-[14px] bg-[#0c1218] flex flex-col items-center justify-center font-display font-black text-2xl text-amber-400 tracking-wider">
-                      <span>{director.initials}</span>
-                      <span className="w-6 h-[1.5px] bg-amber-400/60 mt-0.5" />
-                    </div>
-                  )}
+                  <div className="w-full h-full rounded-[14px] bg-[#0c1218] flex flex-col items-center justify-center font-display font-black text-2xl text-amber-400 tracking-wider border border-amber-400/20">
+                    <span>{director.initials}</span>
+                    <span className="w-6 h-[1.5px] bg-amber-400/60 mt-0.5" />
+                  </div>
                 </div>
                 <span className="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[11px] font-bold tracking-wider uppercase">
                   {director.badge}
