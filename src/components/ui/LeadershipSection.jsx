@@ -4,7 +4,7 @@ import { Crown, ShieldCheck, Sparkles } from 'lucide-react';
 export const directorsData = [
   {
     id: 'mahesh',
-    name: 'Mr. Maheshkumar Parmar',
+    name: 'Mr. Mahesh',
     role: 'Founder, Chairman & Managing Director (CMD)',
     shortRole: 'Chief Executive & Founder',
     isMain: true,
@@ -63,11 +63,11 @@ export const LeadershipSection = () => {
           BOARD OF <span className="bg-gradient-to-r from-white via-amber-300 to-orange-500 bg-clip-text text-transparent">DIRECTORS.</span>
         </h2>
         <p className="text-slate-300 text-base sm:text-lg font-light">
-          Led by Founder & CMD Mr. Maheshkumar Parmar alongside Co-Founding Executive Directors driving global renewable energy transformation.
+          Led by Founder & CMD Mr. Mahesh alongside Co-Founding Executive Directors driving global renewable energy transformation.
         </p>
       </div>
 
-      {/* Main Leader Prominent Feature (Mr. Maheshkumar Parmar - CMD) */}
+      {/* Main Leader Prominent Feature (Mr. Mahesh - CMD) */}
       <div className="mb-12">
         <div className="glass-panel p-8 sm:p-10 rounded-3xl border-2 border-amber-400/50 relative overflow-hidden shadow-[0_0_50px_rgba(251,191,36,0.15)] bg-gradient-to-r from-[#0F172A]/90 via-[#1E3A8A]/40 to-[#0F172A]/90">
           {/* Main Crown Founder Tag */}

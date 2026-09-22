@@ -23,7 +23,7 @@ export const FooterSection = ({ onContactSubmit }) => {
               <UserCheck className="w-4 h-4" /> Board of Directors
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-white pt-1">
-              <div>• Mr. Maheshkumar Parmar (CMD)</div>
+              <div>• Mr. Mahesh (CMD)</div>
               <div>• Mr. Dhiral Mistri</div>
               <div>• Mr. Darshil Patel</div>
             </div>
