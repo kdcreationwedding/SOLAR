@@ -21,16 +21,21 @@ export const HeroSection = ({ onExploreClick, onContactClick }) => {
         </div>
 
         {/* Headline with Brand Tri-Gradient (Blue K, Emerald D, Sun Gold) */}
-        <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white uppercase leading-[1.08] mb-6 drop-shadow-2xl">
+        <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white uppercase leading-[1.08] mb-4 drop-shadow-2xl">
           POWERING A <br />
           <span className="bg-gradient-to-r from-blue-400 via-emerald-300 to-amber-400 bg-clip-text text-transparent">
             BRIGHTER TOMORROW.
           </span>
         </h1>
 
+        {/* Primary Semantic Keyword Badge for Search Engines */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs sm:text-sm font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">
+          <span>KD Global Sun Energy | Turnkey Solar EPC Company in Gujarat &amp; Ahmedabad</span>
+        </div>
+
         {/* Subheadline */}
         <p className="text-lg sm:text-2xl text-slate-200 max-w-2xl font-light tracking-wide mb-10 leading-relaxed drop-shadow-md">
-          Smart Solar Solutions. Sustainable Green Power. A Better Future.
+          Smart Solar EPC Solutions • Ground-Mounted Power Plants • Industrial Rooftop PV
         </p>
 
         {/* Action CTAs */}
