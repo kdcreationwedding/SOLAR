@@ -20,13 +20,13 @@ export const HeroSection = ({ onExploreClick, onContactClick }) => {
           <Logo size="large" />
         </div>
 
-        {/* High-Impact Headline with Fiery Sun Gold & Cyber Electric Cyan */}
-        <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight uppercase leading-[1.08] mb-5 drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]">
-          <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.7)]">POWERING A</span> <br />
-          <span className="bg-gradient-to-r from-[#FFE600] via-[#FFB700] to-[#FF5500] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(255,183,0,0.85)]">
+        {/* Ultra-Vibrant Solar Gold & Electric Cyber Neon Headline Colors */}
+        <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight uppercase leading-[1.08] mb-5 drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]">
+          <span className="text-slate-50 drop-shadow-[0_4px_16px_rgba(251,191,36,0.6)]">POWERING A</span> <br />
+          <span className="bg-gradient-to-r from-[#FFEA00] via-[#FF9100] to-[#FF3D00] bg-clip-text text-transparent drop-shadow-[0_0_45px_rgba(255,145,0,0.9)]">
             BRIGHTER
           </span>{' '}
-          <span className="bg-gradient-to-r from-[#00F0FF] via-[#00E5FF] to-[#00FF87] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(0,240,255,0.85)]">
+          <span className="bg-gradient-to-r from-[#00F5FF] via-[#00FFC8] to-[#00E676] bg-clip-text text-transparent drop-shadow-[0_0_45px_rgba(0,255,200,0.9)]">
             TOMORROW.
           </span>
         </h1>
