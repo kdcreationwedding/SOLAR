@@ -13,31 +13,31 @@ export const HeroSection = ({ onExploreClick, onContactClick }) => {
         </div>
       </div>
 
-      {/* Main Content Hero Center */}
-      <div className="flex flex-col items-center text-center my-auto max-w-4xl mx-auto">
+      {/* Main Content Hero Center - Frosted Energy Focal Box for Instant Visual Impact */}
+      <div className="flex flex-col items-center text-center my-auto max-w-4xl mx-auto p-6 sm:p-10 rounded-[2.5rem] bg-slate-950/50 border border-amber-400/30 backdrop-blur-xl shadow-[0_0_70px_rgba(251,191,36,0.2)]">
         {/* Brand Logo Focal Point */}
-        <div className="mb-8 transform hover:scale-105 transition-transform duration-500">
+        <div className="mb-6 transform hover:scale-105 transition-transform duration-500">
           <Logo size="large" />
         </div>
 
-        {/* Headline with Brand Tri-Gradient (Pure White, Sun Gold BRIGHTER, Electric Cyan/Emerald TOMORROW) */}
-        <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight uppercase leading-[1.08] mb-5 drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]">
-          <span className="text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">POWERING A</span> <br />
-          <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(251,191,36,0.6)]">
+        {/* High-Impact Headline with Fiery Sun Gold & Cyber Electric Cyan */}
+        <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight uppercase leading-[1.08] mb-5 drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]">
+          <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.7)]">POWERING A</span> <br />
+          <span className="bg-gradient-to-r from-[#FFE600] via-[#FFB700] to-[#FF5500] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(255,183,0,0.85)]">
             BRIGHTER
           </span>{' '}
-          <span className="bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(56,189,248,0.5)]">
+          <span className="bg-gradient-to-r from-[#00F0FF] via-[#00E5FF] to-[#00FF87] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(0,240,255,0.85)]">
             TOMORROW.
           </span>
         </h1>
 
         {/* Primary Semantic Keyword Badge for Search Engines */}
-        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/20 border border-amber-400/50 text-amber-300 text-xs sm:text-sm font-extrabold uppercase tracking-widest mb-6 backdrop-blur-md shadow-[0_0_25px_rgba(251,191,36,0.25)]">
+        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/25 via-orange-500/25 to-amber-500/25 border-2 border-amber-400/60 text-amber-300 text-xs sm:text-sm font-extrabold uppercase tracking-widest mb-6 shadow-[0_0_30px_rgba(251,191,36,0.35)]">
           <span>KD Global Sun Energy | Turnkey Solar EPC Company in Gujarat &amp; Ahmedabad</span>
         </div>
 
         {/* Subheadline */}
-        <p className="text-lg sm:text-2xl text-slate-100 max-w-3xl font-light tracking-wide mb-10 leading-relaxed drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
+        <p className="text-lg sm:text-2xl text-slate-100 max-w-3xl font-medium tracking-wide mb-8 leading-relaxed drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
           Smart Solar EPC Solutions • Ground-Mounted Power Plants • Industrial Rooftop PV
         </p>
 
