@@ -20,21 +20,24 @@ export const HeroSection = ({ onExploreClick, onContactClick }) => {
           <Logo size="large" />
         </div>
 
-        {/* Headline with Brand Tri-Gradient (Blue K, Emerald D, Sun Gold) */}
-        <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white uppercase leading-[1.08] mb-4 drop-shadow-2xl">
-          POWERING A <br />
-          <span className="bg-gradient-to-r from-blue-400 via-emerald-300 to-amber-400 bg-clip-text text-transparent">
-            BRIGHTER TOMORROW.
+        {/* Headline with Brand Tri-Gradient (Pure White, Sun Gold BRIGHTER, Electric Cyan/Emerald TOMORROW) */}
+        <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight uppercase leading-[1.08] mb-5 drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]">
+          <span className="text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">POWERING A</span> <br />
+          <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(251,191,36,0.6)]">
+            BRIGHTER
+          </span>{' '}
+          <span className="bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(56,189,248,0.5)]">
+            TOMORROW.
           </span>
         </h1>
 
         {/* Primary Semantic Keyword Badge for Search Engines */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs sm:text-sm font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">
+        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/20 border border-amber-400/50 text-amber-300 text-xs sm:text-sm font-extrabold uppercase tracking-widest mb-6 backdrop-blur-md shadow-[0_0_25px_rgba(251,191,36,0.25)]">
           <span>KD Global Sun Energy | Turnkey Solar EPC Company in Gujarat &amp; Ahmedabad</span>
         </div>
 
         {/* Subheadline */}
-        <p className="text-lg sm:text-2xl text-slate-200 max-w-2xl font-light tracking-wide mb-10 leading-relaxed drop-shadow-md">
+        <p className="text-lg sm:text-2xl text-slate-100 max-w-3xl font-light tracking-wide mb-10 leading-relaxed drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
           Smart Solar EPC Solutions • Ground-Mounted Power Plants • Industrial Rooftop PV
         </p>
 
