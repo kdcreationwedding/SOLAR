@@ -13,10 +13,10 @@ export const HeroSection = ({ onExploreClick, onContactClick }) => {
         </div>
       </div>
 
-      {/* Main Content Hero Center - Frosted Energy Focal Box for Instant Visual Impact */}
-      <div className="flex flex-col items-center text-center my-auto max-w-4xl mx-auto p-6 sm:p-10 rounded-[2.5rem] bg-slate-950/50 border border-amber-400/30 backdrop-blur-xl shadow-[0_0_70px_rgba(251,191,36,0.2)]">
+      {/* Main Content Hero Center */}
+      <div className="flex flex-col items-center text-center my-auto max-w-4xl mx-auto">
         {/* Brand Logo Focal Point */}
-        <div className="mb-6 transform hover:scale-105 transition-transform duration-500">
+        <div className="mb-8 transform hover:scale-105 transition-transform duration-500">
           <Logo size="large" />
         </div>
 
@@ -32,12 +32,12 @@ export const HeroSection = ({ onExploreClick, onContactClick }) => {
         </h1>
 
         {/* Primary Semantic Keyword Badge for Search Engines */}
-        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/25 via-orange-500/25 to-amber-500/25 border-2 border-amber-400/60 text-amber-300 text-xs sm:text-sm font-extrabold uppercase tracking-widest mb-6 shadow-[0_0_30px_rgba(251,191,36,0.35)]">
+        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/25 via-orange-500/25 to-amber-500/25 border-2 border-amber-400/60 text-amber-300 text-xs sm:text-sm font-extrabold uppercase tracking-widest mb-6 backdrop-blur-md shadow-[0_0_30px_rgba(251,191,36,0.35)]">
           <span>KD Global Sun Energy | Turnkey Solar EPC Company in Gujarat &amp; Ahmedabad</span>
         </div>
 
         {/* Subheadline */}
-        <p className="text-lg sm:text-2xl text-slate-100 max-w-3xl font-medium tracking-wide mb-8 leading-relaxed drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
+        <p className="text-lg sm:text-2xl text-slate-100 max-w-3xl font-light tracking-wide mb-10 leading-relaxed drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
           Smart Solar EPC Solutions • Ground-Mounted Power Plants • Industrial Rooftop PV
         </p>
 
